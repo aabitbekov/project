@@ -18,8 +18,8 @@ class Signal(models.Model):
         blank=True, 
         null=True
         )
-    user = models.CharField(("Источник"), max_length=50)
-    message_text = models.TextField(verbose_name="Сообщение",)
+    uid = models.IntegerField(("id Источника"))
+    user = models.IntegerField(("Источник"))
 
     class Meta:
         verbose_name = 'Сигнал'
@@ -31,7 +31,7 @@ class Signal(models.Model):
         if self.ip_src:
             ip = self.ip_src
             znak = '❌'
-        return f"Incident: {znak} {ip} "
+        return f"Сигнал:{self.timestamp} --  {znak} {ip} "
     
 
 class Incident(models.Model):
@@ -53,6 +53,9 @@ class Incident(models.Model):
     class Meta:
         verbose_name = 'Инцидент'
         verbose_name_plural = 'Инциденты'
+    
+    
+
 
 
 
