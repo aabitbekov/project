@@ -6,7 +6,7 @@ class Signal(models.Model):
     timestamp = models.DateTimeField(
         verbose_name="Дата и время",
         blank=False,
-        null=False
+        null=False,
         )
     ip_src = models.GenericIPAddressField(
         verbose_name="SRC IP",

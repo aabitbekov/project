@@ -14,6 +14,7 @@ if debug_str.lower() in ['true', 'yes', '1']:
     DEBUG = True
 else:
     DEBUG = False
+    
 ALLOWED_HOSTS = ['*']
 
 
@@ -32,6 +33,7 @@ DJANGO_APPS = [
     ]
 
 THIRD_PARTY_APPS = [
+     'rangefilter',
     # "crispy_forms",
     # "rest_framework",
 ]
@@ -77,7 +79,6 @@ WSGI_APPLICATION = 'project_conf.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -88,7 +89,6 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -104,20 +104,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-
 LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
-
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static/",

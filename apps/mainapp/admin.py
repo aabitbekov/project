@@ -1,10 +1,26 @@
 from django.contrib import admin
 from django.core.exceptions import ValidationError
+from rangefilter.filters import DateRangeFilter
 from django.utils.safestring import mark_safe
 from .models import Signal, Incident
 from .elastic_client_dev import getLast30Coincidence, getSignalsFromCoincidenceHits
 from .readHits import readSignalsHits, readIncidentHits
 
+# class HasIpSrcOrDstFilter(admin.SimpleListFilter):
+#     title = 'ip-адрес'
+#     parameter_name = 'dst или src'
+
+#     def lookups(self, request, model_admin):
+#         return (
+#             ('dst', 'DST'),
+#             ('src', 'SRC'),
+#         )
+
+#     def queryset(self, request, queryset):
+#         if self.value() == 'dst':
+#             return Incident.objects.filter(signals__ip_dst__isnull=True)    
+#         elif self.value() == 'src':
+#             return Incident.objects.exclude(signals__ip_dst__isnull=False)
 
 class SignalAdmin(admin.ModelAdmin):
     list_display = ('timestamp', 'id', 'ip_src', 'ip_dst', 'user', 'uid')
@@ -18,7 +34,10 @@ class IncidentAdmin(admin.ModelAdmin):
     list_display = ('timestamp', 'ip', 'matching_count'
                     , 'display_signals')
     search_fields = ['id', 'ip', 'signals__ip_src', 'signals__ip_dst']
-    list_filter = ('timestamp', 'matching_count')
+    list_filter = ('timestamp', 'matching_count',
+                    # HasIpSrcOrDstFilter, 
+                #    ('timestamp', DateRangeFilter)
+                   )
     inlines = [SignalInline]
 
     def get_queryset(self, request):
